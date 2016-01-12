@@ -7,12 +7,10 @@ public class PlayerMovement : MonoBehaviour {
 	
 	float h;
 	float v;
-	bool color;
 	//Rigidbody player;
 	
 	void Awake ()
 	{
-		color = false;
 		//player = GetComponent<Rigidbody>();
 	}
 	
@@ -57,8 +55,18 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Tile")
 		{
-			Debug.Log("Hit");
-			other.GetComponent<SpriteRenderer>().enabled = !color;
+			other.GetComponent<SpriteRenderer>().enabled = true;
+			other.enabled = false;
+			Score.score += 25;
+			Score.count += 1;
+		}
+	}
+	
+	void OnCollisionEnter (Collision coll)
+	{
+		if (coll.gameObject.name == "Ground")
+		{
+			GameObject.Destroy(gameObject);
 		}
 	}
 }
